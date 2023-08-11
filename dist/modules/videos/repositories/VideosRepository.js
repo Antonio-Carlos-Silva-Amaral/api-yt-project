@@ -5,9 +5,9 @@ const mysql_1 = require("../../../mysql");
 const uuid_1 = require("uuid");
 class VideoRepository {
     create(request, response) {
-        const { title, description, user_id } = request.body;
+        const { title, description, user_id, thumbnail } = request.body;
         mysql_1.pool.getConnection((err, connection) => {
-            connection.query('INSERT INTO videos (video_id,user_id,title,description) VALUES(?,?,?,?)', [(0, uuid_1.v4)(), user_id, title, description], (error, result, fileds) => {
+            connection.query('INSERT INTO videos (video_id,user_id,title,description,thumbnail) VALUES(?,?,?,?,?)', [(0, uuid_1.v4)(), user_id, title, description, thumbnail], (error, result, fileds) => {
                 connection.release();
                 if (error) {
                     return response.status(400).json(error);
@@ -17,7 +17,7 @@ class VideoRepository {
         });
     }
     getVideos(request, response) {
-        const { user_id } = request.params;
+        const { user_id } = request.query;
         mysql_1.pool.getConnection((err, connection) => {
             connection.query('SELECT * FROM videos WHERE user_id = ?', [user_id], (error, results, fileds) => {
                 connection.release();
