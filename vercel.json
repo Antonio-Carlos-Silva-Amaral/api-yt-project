@@ -1,9 +1,9 @@
 {
-    "version":2,
+    "version": 2,
     "builds": [
         {
-            "src":"./dist/serves.js",
-            "use":"@now/node"
+            "src": "./dist/server.js",
+            "use": "@now/node"
         }
     ],
     "routes": [
